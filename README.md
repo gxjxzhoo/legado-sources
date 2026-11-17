@@ -6,7 +6,7 @@
 
 网络导入：
 - 书源：https://cdn.jsdelivr.net/gh/gxjxzhoo/legado-sources@main/sources.json
-- 净化：https://cdn.jsdelivr.net/gh/gxjxzhoo/legado-sources@main/purify.json
+- 净化（tickmao 20 条 + 洛娅橙 14 条）：https://cdn.jsdelivr.net/gh/gxjxzhoo/legado-sources@main/purify.json
 - 字典规则：https://cdn.jsdelivr.net/gh/gxjxzhoo/legado-sources@main/dict.json
 - TXT目录规则：https://cdn.jsdelivr.net/gh/gxjxzhoo/legado-sources@main/txttoc.json
 

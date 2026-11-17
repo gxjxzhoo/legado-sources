@@ -69,6 +69,12 @@ for s,r in zip(out,res):
 print(len(final),collections.Counter(s['bookSourceGroup'] for s in final))
 if len(final)>=200: json.dump(final,open('sources.json','w'),ensure_ascii=False,indent=0)
 p=get(PURIFY)
+lyc=get([GH+'Luoyacheng/yuedu/main/%E8%A7%84%E5%88%99/%E5%87%80%E5%8C%96%E8%A7%84%E5%88%99/jh.json'])
+if p and lyc:
+    ids={r.get('id') for r in p}
+    for r in lyc:
+        if r.get('id') in ids: continue
+        r=dict(r); r['group']='洛娅橙·'+(r.get('group') or ''); p.append(r)
 if p: json.dump(p,open('purify.json','w'),ensure_ascii=False,indent=0)
 
 # 字典规则 / TXT目录规则 (Luoyacheng/yuedu)
