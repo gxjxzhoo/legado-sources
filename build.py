@@ -12,13 +12,24 @@ SRC=[('XIU2精品',['https://bitbucket.org/xiu2/yuedu/raw/master/shuyuan'],False
  ('轻小说',M('MajoSissi/legado-source/main/source/light-novel.json'),False),
  ('Pixiv',M('DowneyRem/PixivSource/main/pixiv.json'),False),
  ('luanmuc合集',M('luanmuc/legado-book-sources/main/books.json'),True),
+ ('稳定合集',['https://shuyuan-api.yiove.com/import/book-source-collection/eaedccd4-1252-4962-a565-c7a342f95f90'],True),
+ ('源仓库合集',['https://shuyuan.nyasama.cc/cdn/5f626361539d546e6fa3a02b24598284.json'],True),
+ ('破冰',['https://legado.miaogongzi.org/%E9%98%85%E8%AF%BB%E4%B9%A6%E6%BA%90/sy.json'],True),
+ ('关耳女频',['https://cdn.mgz.la/shuyuan/guaner25.02.03.txt'],True),
+ ('一程',['https://cdn.mgz.la/shuyuan/250701%E6%9C%80%E5%90%8E%E4%B8%80%E7%89%88%E4%B8%80%E7%A8%8B.json'],True),
+ ('黄凡凡',['https://legado.miaogongzi.org/%E9%98%85%E8%AF%BB%E4%B9%A6%E6%BA%90/hff.json'],True),
+ ('明月照大江',['https://sy.nyasama.cc/shuyuan/469b68b8c8e7344eb38664d2fb1bdd17.json'],True),
+ ('楠枫',['https://shuyuan.nyasama.cc/shuyuan/f5b15e9641d164937061974cfefb675c.json'],True),
  ('aoaostar校验可用',['https://jihulab.com/aoaostar/legado/-/raw/release/cache/3fc2c64c5489c491de6284dca2c2dfce7f551bc9.json'],True)]
 STRICT={g for g,_,st in SRC if st}
 PURIFY=['https://raw.githubusercontent.com/tickmao/Novel/master/rules/legado/purify.json','https://cdn.jsdelivr.net/gh/tickmao/Novel@master/rules/legado/purify.json']
 def get(urls):
     for u in urls:
         try:
-            d=json.loads(urllib.request.urlopen(urllib.request.Request(u,headers=UA),timeout=180,context=ctx).read().decode('utf-8-sig'))
+            b=urllib.request.urlopen(urllib.request.Request(u,headers=UA),timeout=180,context=ctx).read()
+            if b[:2]==b'\x1f\x8b': import gzip; b=gzip.decompress(b)
+            d=json.loads(b.decode('utf-8-sig'))
+            if isinstance(d,dict): d=[d]
             if isinstance(d,list) and d: return d
         except Exception as e: print('fail',u,e)
     return None
@@ -35,7 +46,7 @@ for g,urls,_ in SRC:
         k=key(s.get('bookSourceUrl'))
         if not k or k in seen: continue
         if not (s.get('searchUrl') or '').strip() and g!='Pixiv': continue
-        if g=='luanmuc合集' and (s.get('bookSourceType') or 0)!=0: continue
+        if g in STRICT and str(s.get('bookSourceType') or 0)!='0': continue
         seen.add(k); s=dict(s)
         if g not in reuse:
             adult=bool(ADULT.search((s.get('bookSourceGroup') or '')+(s.get('bookSourceName') or '')))
