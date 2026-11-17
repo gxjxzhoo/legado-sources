@@ -7,5 +7,7 @@
 网络导入：
 - 书源：https://cdn.jsdelivr.net/gh/gxjxzhoo/legado-sources@main/sources.json
 - 净化：https://cdn.jsdelivr.net/gh/gxjxzhoo/legado-sources@main/purify.json
+- 字典规则：https://cdn.jsdelivr.net/gh/gxjxzhoo/legado-sources@main/dict.json
+- TXT目录规则：https://cdn.jsdelivr.net/gh/gxjxzhoo/legado-sources@main/txttoc.json
 
 国内备用（GitHub 直连）：https://raw.githubusercontent.com/gxjxzhoo/legado-sources/main/sources.json
