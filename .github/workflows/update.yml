@@ -16,3 +16,5 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add sources.json purify.json dict.json txttoc.json
           git diff --cached --quiet || (git commit -m "update $(date -u +%F)" && git pull --rebase origin main && git push)
+      - name: purge jsDelivr cache
+        run: for f in sources purify dict txttoc; do curl -s "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/$f.json" >/dev/null || true; done
